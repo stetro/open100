@@ -1,0 +1,51 @@
+@import "bower_components/susy/sass/susy";
+
+$susy: (
+	columns: 12,
+	gutters: 1/4,
+	gutter-position: inside
+);
+
+body {
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 11px;
+}
+
+open100{
+	@include container;
+}
+
+node{
+	@include span(4 of 12); 
+	$block_height: 160px;
+	.code{
+		position: relative;
+		overflow: hidden;
+		border-radius: 5px;
+		> .border{
+			background-color: #419392;
+			height: $block_height;
+			width:25px;
+			position: absolute;
+			text-align: right;
+			color: white;
+			padding-top:6px;
+			> div{
+				margin-right: 5px;				
+			}
+		}
+		textarea{
+			background-color: #505050;
+			height: $block_height;
+			color: #fff3c5;
+			width: 100%;
+			box-sizing: border-box;
+			padding: 5px;
+			padding-left: 30px;
+			font-family: 'Courier New', Courier, monospace;
+			font-size: 11px;
+			resize: none;
+		}
+	}
+}
+

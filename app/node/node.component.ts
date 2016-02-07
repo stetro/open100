@@ -7,15 +7,18 @@ import {Instruction} from '../asm/instruction';
 })
 export class Node {
     lines: Array<string> = [];
-    count: number=10;
+    numbers: Array<number> = [];
+    count: number = 12;
 
-	constructor(){
-		for (var i = 0; i < this.count; ++i) {
-			this.lines[i] = '';
-		}
-	}
+
+    constructor() {
+        for (var i = 0; i < this.count; ++i) {
+            this.lines[i] = '';
+            this.numbers[i] = i + 1;
+        }
+    }
 
     parse() {
-        
+
     }
 }

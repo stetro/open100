@@ -1,8 +1,6 @@
 {
   "name": "open100",
-  "description": "",
-  "main": "",
-  "license": "ISC",
+  "license": "MIT",
   "moduleType": [],
   "homepage": "",
   "ignore": [
@@ -11,5 +9,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "susy": "^2.2.12"
+  }
 }
