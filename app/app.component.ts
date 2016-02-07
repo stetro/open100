@@ -6,4 +6,8 @@ import {Node} from './node/node.component';
     templateUrl: 'app/app.template.html',
     directives: [Node]
 })
-export class AppComponent { }
+export class AppComponent {
+	constructor() {
+
+	}
+}

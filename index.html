@@ -12,6 +12,7 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css">
 
     <!-- 2. Configure SystemJS -->
     <script>
@@ -23,8 +24,7 @@
           }
         }
       });
-      System.import('dist/main')
-            .then(null, console.error.bind(console));
+      System.import('dist/app/main').then(null, console.error.bind(console));
     </script>
 
   </head>
