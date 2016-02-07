@@ -2,7 +2,7 @@
 
 $susy: (
 	columns: 12,
-	gutters: 1/4,
+	gutters: 1,
 	gutter-position: inside
 );
 
@@ -18,11 +18,14 @@ open100{
 node{
 	@include span(4 of 12); 
 	$block_height: 160px;
+	margin-top: 25px;
 	.code{
 		position: relative;
 		overflow: hidden;
 		border-radius: 5px;
-		> .border{
+		box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+		background-color: #505050;
+		> aside{
 			background-color: #419392;
 			height: $block_height;
 			width:25px;
@@ -31,11 +34,34 @@ node{
 			color: white;
 			padding-top:6px;
 			> div{
-				margin-right: 5px;				
+				margin-right: 5px;
+				> div.error{
+					position: absolute;
+					background-color: red;
+					background-color: #f18069;
+					right: 0px;
+					padding-right: 5px;
+					width: 25px;
+					>.info{
+						position: absolute;
+						top: 0px;
+						left: 30px;
+						width: 120px;
+						text-align: left;
+						background-color: #fff3c5;
+						color:#505050;
+						display: none;
+					}
+					&:hover {
+						> .info{
+							display:inline;
+						}
+					}
+				}
 			}
 		}
 		textarea{
-			background-color: #505050;
+			background-color: rgba(0,0,0,0);
 			height: $block_height;
 			color: #fff3c5;
 			width: 100%;

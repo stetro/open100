@@ -6,40 +6,49 @@ export enum Register { ACC, UP, DOWN, LEFT, RIGHT, NIL }
 export interface Label { name: string; }
 
 export class Instruction {
-    private static instructionRegex: RegExp = /^([A-Z]{3})[\s]{1,}([A-Z0-9]{1,})[\s,]{0,}([A-Z]{3,4})?$/
+    private static instructionRegex: RegExp = /^([A-Z]{1,10}\:)$|([A-Z]{3})[\s]{1,}([A-Z0-9]{1,})[\s,]{0,}([A-Z]{2,4})?$/
 
-    command: Command;
-    param1: Register | Label | number;
+    command: Command | Label;
+    param1: Register | number;
     param2: Register;
     error: boolean = false;
+    errorMessage: string = "";
+    empty: boolean = false;
 
     constructor(instruction: string) {
         try {
             this.parseInstruction(instruction);
         } catch (e) {
-            console.log(e.message);
             this.error = true;
+            this.errorMessage = e.message;
         }
     }
 
     private parseInstruction(line: string) {
         line = line.trim();
         line = line.toUpperCase();
+        if (line.length == 0) {
+            this.empty = true;
+            return;
+        }
         let result = Instruction.instructionRegex.exec(line);
         if (result == null) {
-            throw new Error(`Could not parse $(line)`);
+            throw new Error(`Could not parse ${line}`);
         }
-        console.log(result);
-        this.command = this.parseCommand(result[1]);
-        if (result[2].match(/[0-9]{0,4}/)) {
-            this.param1 = parseInt(result[2]);
+        if (result[1]) {
+            this.command = { name: result[1] };
         } else {
-            this.param1 = this.parseRegister(result[2]);
-        }
-        if (result[3]) {
-            this.param2 = this.parseRegister(result[3]);
-        }
-    }
+            this.command = this.parseCommand(result[2]);
+            if (result[3].match(/[0-9]{0,4}/)) {
+                this.param1 = parseInt(result[2]);
+            } else {
+                this.param1 = this.parseRegister(result[2]);
+            }
+            if (result[4]) {
+                this.param2 = this.parseRegister(result[3]);
+            }
+        } 
+   }
 
     private parseCommand(name: string): Command {
         switch (name) {
@@ -52,7 +61,7 @@ export class Instruction {
             case 'JEZ':
                 return Command.JEZ;
             default:
-                throw new Error(`Could not parse Command $(name)`);
+                throw new Error(`Could not parse Command ${name}`);
         }
     }
 
@@ -71,7 +80,8 @@ export class Instruction {
             case 'NIL':
                 return Register.NIL;
             default:
-                throw new Error(`Could not parse Register $(name)`);
+                throw new Error(`Could not parse Register ${name}`);
         }
     }
 }
+

@@ -1,8 +1,12 @@
 <div class="code">
-	<div class="border">
-		<div *ngFor="#number of numbers">
+	<aside>
+		<div *ngFor="#number of numbers; #i = index">
+			<div class="error" *ngIf="lines[i] != undefined && lines[i].error">
+				{{number}}
+				<span class="info">{{lines[i].errorMessage}}</span>
+			</div>
 			{{number}}
 		</div>
-	</div>
-	<textarea></textarea>
+	</aside>
+	<textarea (keyup)="parse()" [(ngModel)]="code"></textarea>
 </div>
