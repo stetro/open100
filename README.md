@@ -1,4 +1,4 @@
-Open100
+Open100 [![Build Status](https://travis-ci.org/stetro/open100.svg?branch=master)](https://travis-ci.org/stetro/open100)
 =======
 
 Assembler interpreter written in TypeScript. 
