@@ -1,12 +1,64 @@
-<div class="code">
-	<aside>
-		<div *ngFor="#number of numbers; #i = index">
-			<div class="error" *ngIf="lines[i] != undefined && lines[i].error">
+<div class="border">
+
+	<div class="up">
+		<i class="demo-icon icon-up-outline"></i>
+		<i class="demo-icon icon-up" hidden="true"></i>
+		<i class="demo-icon icon-down-outline"></i>
+		<i class="demo-icon icon-down" hidden="true"></i>	
+	</div>
+	<div class="down">
+		<i class="demo-icon icon-down-outline"></i>
+		<i class="demo-icon icon-down" hidden="true"></i>	
+		<i class="demo-icon icon-up-outline"></i>
+		<i class="demo-icon icon-up" hidden="true"></i>
+	</div>
+	<div class="left">
+		<i class="demo-icon icon-left-outline"></i>
+		<i class="demo-icon icon-left" hidden="true"></i>
+		<i class="demo-icon icon-right-outline"></i>
+		<i class="demo-icon icon-right" hidden="true"></i>	
+	</div>
+	<div class="right">
+		<i class="demo-icon icon-right-outline"></i>
+		<i class="demo-icon icon-right" hidden="true"></i>
+		<i class="demo-icon icon-left-outline"></i>
+		<i class="demo-icon icon-left" hidden="true"></i>	
+	</div>
+	
+	<button (click)="toggleStatus()">
+		<span *ngIf="!interpreter.running">Play</span>
+		<span *ngIf="interpreter.running">Stop</span>
+	</button>
+	<button (click)="tick()">Tick</button>
+
+	<div class="code">
+		<aside>
+			<div *ngFor="#number of numbers; #i = index">
+				<div class="highlight" *ngIf="interpreter.pc == i && interpreter.running">
+					<span>&nbsp;</span>
+				</div>
+				<div class="error" *ngIf="lines[i] != undefined && lines[i].error">
+					{{number}}
+					<span class="info">{{lines[i].errorMessage}}</span>
+				</div>
 				{{number}}
-				<span class="info">{{lines[i].errorMessage}}</span>
 			</div>
-			{{number}}
+		</aside>
+		<div class="cover" *ngIf="interpreter.running"></div>
+		<textarea (keyup)="parse()" [(ngModel)]="code"></textarea>
+		<div class="register">
+			<div class="acc">
+				<label>ACC</label>
+				<span>{{interpreter.acc}}</span>
+			</div>
+			<div class="bak">
+				<label>BAK</label>
+				<span>{{interpreter.bak}}</span>
+			</div>
+			<div class="pc">
+				<label>PC</label>
+				<span>{{interpreter.pc + 1}}</span>
+			</div>
 		</div>
-	</aside>
-	<textarea (keyup)="parse()" [(ngModel)]="code"></textarea>
+	</div>
 </div>
