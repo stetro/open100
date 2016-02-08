@@ -29,6 +29,7 @@ export class Interpreter {
 		this.running = true;
 
 		this.iteratePC();
+
 	}
 
 	stop() {

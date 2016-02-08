@@ -5,7 +5,7 @@ var browserSync = require('browser-sync').create();
 
 gulp.task('default', ['build']);
 
-gulp.task('build', ['ts']);
+gulp.task('build', ['ts', 'sass']);
 
 gulp.task('ts', function() {
     var tsProject = ts.createProject('tsconfig.json');
