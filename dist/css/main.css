@@ -1,0 +1,111 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px; }
+
+open100 {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+  open100:after {
+    content: " ";
+    display: block;
+    clear: both; }
+
+node {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 25%;
+  float: left;
+  padding-left: 2.08333%;
+  padding-right: 2.08333%;
+  margin-top: 50px; }
+  node .border {
+    position: relative; }
+    node .border .up, node .border .down, node .border .left, node .border .right {
+      position: absolute; }
+    node .border .up {
+      top: -20px;
+      width: 100%;
+      text-align: center; }
+    node .border .down {
+      bottom: -20px;
+      width: 100%;
+      text-align: center; }
+    node .border .left {
+      top: 55px;
+      left: -25px;
+      width: 20px; }
+    node .border .right {
+      top: 75px;
+      right: -25px;
+      width: 20px; }
+  node .code {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    background-color: #505050; }
+    node .code > .cover {
+      position: absolute;
+      z-index: 30;
+      width: 100%;
+      height: 160px;
+      background-color: rgba(255, 255, 255, 0.1); }
+    node .code > .register {
+      position: absolute;
+      right: 0;
+      bottom: 0; }
+      node .code > .register > div {
+        float: right;
+        color: white;
+        width: 25px;
+        padding: 2px;
+        text-align: center; }
+    node .code > aside {
+      background-color: #419392;
+      height: 160px;
+      width: 25px;
+      position: absolute;
+      text-align: right;
+      color: white;
+      padding-top: 6px;
+      z-index: 10; }
+      node .code > aside > div {
+        margin-right: 5px; }
+        node .code > aside > div > div.highlight {
+          position: absolute;
+          background-color: gray;
+          width: 500px;
+          z-index: -3; }
+        node .code > aside > div > div.error {
+          position: absolute;
+          background-color: red;
+          background-color: #f18069;
+          right: 0px;
+          padding-right: 5px;
+          width: 25px; }
+          node .code > aside > div > div.error > .info {
+            position: absolute;
+            top: 0px;
+            left: 30px;
+            width: 120px;
+            text-align: left;
+            background-color: #fff3c5;
+            color: #505050;
+            display: none; }
+          node .code > aside > div > div.error:hover > .info {
+            display: inline; }
+    node .code textarea {
+      background-color: transparent;
+      height: 160px;
+      color: #fff3c5;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 5px;
+      padding-left: 30px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      resize: none;
+      z-index: 10;
+      position: relative; }
