@@ -1,4 +1,7 @@
-<button (click)="start()">Start</button>
+<button (click)="start()">
+	<span *ngIf="running">Stop</span>
+	<span *ngIf="!running">Start</span>
+</button>
 <input type="range" [(ngModel)]="interval" min="50" max="1000"/> {{interval}}ms
 <strong>Open100 ASM Playground</strong>
 <hr/>
