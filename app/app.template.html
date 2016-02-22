@@ -1,6 +1,6 @@
-
-<button (click)="tick()">Tick</button>
 <button (click)="start()">Start</button>
+<input type="range" [(ngModel)]="interval" min="50" max="1000"/> {{interval}}ms
+<strong>Open100 ASM Playground</strong>
 <hr/>
 
 <node *ngFor="#i of indices"

@@ -6,9 +6,11 @@ $susy: (
 	gutter-position: inside
 );
 
+$fontsize:13px;
+
 body {
 	font-family: 'Courier New', Courier, monospace;
-	font-size: 11px;
+	font-size: $fontsize;
 }
 
 open100{
@@ -16,7 +18,7 @@ open100{
 }
 
 node{
-	@include span(4 of 12); 
+	@include span(3 of 12); 
 	$block_height: 160px;
 	margin-top: 50px;
 	.border{
@@ -35,12 +37,12 @@ node{
 			text-align: center;
 		}
 		.left{
-			top: 25px;
+			top: 55px;
 			left: -25px;
 			width: 20px;
 		}
 		.right{
-			top: 95px;
+			top: 75px;
 			right: -25px;
 			width: 20px;
 		}
@@ -122,7 +124,7 @@ node{
 			padding: 5px;
 			padding-left: 30px;
 			font-family: 'Courier New', Courier, monospace;
-			font-size: 11px;
+			font-size: $fontsize;
 			resize: none;
 			z-index: 10;
 			position: relative;

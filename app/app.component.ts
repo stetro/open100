@@ -14,8 +14,9 @@ export class AppComponent {
 	running: boolean;
 	ports: { [index: number]: { [index: number]: Port; }; } = [];
 	indices: Array<number> = [];
-	columns: number = 3;
-	rows: number = 3;
+	columns: number = 4;
+	rows: number = 4;
+	interval: number = 1000;
 
 	constructor() {
 		this.clock = 0;
@@ -26,12 +27,15 @@ export class AppComponent {
 	tick() {
 		if (this.running) {
 			this.clock++;
+			window.setTimeout(_=> this.tick(), this.interval);
 		}
-		console.log(this.ports);
 	}
 
 	start() {
 		this.running = !this.running;
+		if (this.running) {
+			window.setTimeout(_=> this.tick(), this.interval);
+		}
 	}
 
 	private generatePorts() {
