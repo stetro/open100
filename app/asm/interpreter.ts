@@ -1,4 +1,6 @@
-import {Instruction, Literal, Label, Register, Command, NumberLiteral} from './instruction';
+import {Instruction} from './instruction';
+import {Literal, Command, Register, NumberLiteral, Label} from './literal';
+import {Port} from './port';
 
 export class Interpreter {
 
@@ -12,9 +14,23 @@ export class Interpreter {
 	bak: number = 0;
 	pc: number = 0;
 
+	upin: Port;
+    downin: Port;
+    leftin: Port;
+    rightin: Port;
+
+    upout: Port;
+    downout: Port;
+    leftout: Port;
+    rightout: Port;
+
 	tick() {
-		this.interpret();
-		this.iteratePC();
+		try {
+			this.interpret();
+			this.iteratePC();
+		} catch (e) {
+			// skip this instruction and don't iterate pc
+		}
 	}
 
 	start(lines: Array<Instruction>) {
@@ -28,8 +44,17 @@ export class Interpreter {
 		this.lines = lines;
 		this.running = true;
 
-		this.iteratePC();
+		if (this.upin) { this.upin.clear(); }
+		if (this.downin) { this.downin.clear(); }
+		if (this.leftin) { this.leftin.clear(); }
+		if (this.rightin) { this.rightin.clear(); }
 
+		if (this.upout) { this.upout.clear(); }
+		if (this.downout) { this.downout.clear(); }
+		if (this.leftout) { this.leftout.clear(); }
+		if (this.rightout) { this.rightout.clear(); }
+
+		this.iteratePC();
 	}
 
 	stop() {
@@ -54,45 +79,28 @@ export class Interpreter {
 				case 'NOP':
 					break;
 				case 'ADD':
-					{
-						let value = this.readValue(line.param1);
-						this.acc = this.acc + value;
-					}
+					this.acc = this.acc + this.readValue(line.param1);
 					break;
 				case 'SUB':
-					{
-						let value = this.readValue(line.param1);
-						this.acc = this.acc - value;
-					}
+					this.acc = this.acc - this.readValue(line.param1);
 					break;
 				case 'JEZ':
-					if (this.acc == 0) {
-						this.pc = this.labels[line.param1.name];
-					}
+					if (this.acc == 0) { this.pc = this.labels[line.param1.name]; }
 					break;
 				case 'JLZ':
-					if (this.acc < 0) {
-						this.pc = this.labels[line.param1.name];
-					}
+					if (this.acc < 0) { this.pc = this.labels[line.param1.name]; }
 					break;
 				case 'JGZ':
-					if (this.acc > 0) {
-						this.pc = this.labels[line.param1.name];
-					}
+					if (this.acc > 0) { this.pc = this.labels[line.param1.name]; }
 					break;
 				case 'JNZ':
-					if (this.acc != 0) {
-						this.pc = this.labels[line.param1.name];
-					}
+					if (this.acc != 0) { this.pc = this.labels[line.param1.name]; }
 					break;
 				case 'JMP':
 					this.pc = this.labels[line.param1.name];
 					break;
 				case 'MOV':
-					{
-						let value = this.readValue(line.param1);
-						this.writeToRegister(line.param2, value);
-					}
+					this.writeToRegister(line.param2, this.readValue(line.param1));
 					break;
 			}
 		}
@@ -111,9 +119,13 @@ export class Interpreter {
             case 'ACC':
 				return this.acc;
             case 'UP':
+				if (this.upin) { return this.upin.getValue(this); }
             case 'DOWN':
+				if (this.downin) { return this.downin.getValue(this); }
             case 'LEFT':
+				if (this.leftin) { return this.leftin.getValue(this); }
             case 'RIGHT':
+				if (this.rightin) { return this.rightin.getValue(this); }
             case 'NIL':
             default:
                 return 0;
@@ -126,12 +138,19 @@ export class Interpreter {
 				this.acc = value;
 				break;
             case 'UP':
-            case 'DOWN':
-            case 'LEFT':
-            case 'RIGHT':
+				if (this.upout) { this.upout.setValue(value, this); }
+				break;
+			case 'DOWN':
+				if (this.downout) { this.downout.setValue(value, this); }
+				break;
+			case 'LEFT':
+				if (this.leftout) { this.leftout.setValue(value, this); }
+				break;
+			case 'RIGHT':
+				if (this.rightout) { this.rightout.setValue(value, this); }
+				break;
             case 'NIL':
             default:
-
         }
 	}
 
@@ -147,7 +166,6 @@ export class Interpreter {
 
 	private fillLabelLookupTable(lines: Array<Instruction>) {
 		for (var i = 0; i < lines.length; ++i) {
-			console.log(lines);
 			if (lines[i].command instanceof Label) {
 				this.labels[lines[i].command.name] = i;
 			}

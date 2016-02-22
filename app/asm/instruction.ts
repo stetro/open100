@@ -1,24 +1,7 @@
-export class Literal {
-    name: string;
-    constructor(name) {
-        this.name = name;
-    }
-}
-
-export class Command extends Literal { }
-export class Register extends Literal { }
-export class Label extends Literal { }
-
-export class NumberLiteral extends Literal {
-    value: number;
-    constructor(value: number) {
-        super(value.toString());
-        this.value = value;
-    }
-}
+import {Literal, Command, Register, NumberLiteral, Label} from './literal';
 
 export class Instruction {
-    private static instructionRegex: RegExp = /^([A-Z]{1,10}\:)$|([A-Z]{3})[\s]{0,}([0-9\-]{1,}|[A-Z]{2,4}|[A-Z]{1,}\:)?[\s,]{0,}([A-Z]{2,4})?$/
+    private static instructionRegex: RegExp = /^([A-Z]{1,10}\:)$|([A-Z]{3})[\s]{0,}([0-9\-]{1,}|[A-Z]{2,5}|[A-Z]{1,}\:)?[\s,]{0,}([A-Z]{2,5})?$/
 
     command: Command | Label;
     param1: Register | Label | NumberLiteral;

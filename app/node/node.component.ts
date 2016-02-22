@@ -1,21 +1,66 @@
-import {Component} from 'angular2/core';
-import {Instruction, Command, Register, Label} from '../asm/instruction';
+import {Component, Input, SimpleChange} from 'angular2/core';
+import {Literal, Command, Register, NumberLiteral} from '../asm/literal';
+import {Instruction} from '../asm/instruction';
 import {Interpreter} from '../asm/interpreter';
+import {Port} from '../asm/port';
+
 
 @Component({
     selector: 'node',
     templateUrl: 'app/node/node.template.html'
 })
 export class Node {
+
+    @Input() clock: number;
+    @Input() running: boolean;
+
+    @Input() upin: Port;
+    @Input() downin: Port;
+    @Input() leftin: Port;
+    @Input() rightin: Port;
+
+    @Input() upout: Port;
+    @Input() downout: Port;
+    @Input() leftout: Port;
+    @Input() rightout: Port;
+
     lines: Array<Instruction> = [];
     numbers: Array<number> = [];
     maxLength: number = 12;
     length: number = 0;
-    code: string;
+    code: string = '';
     interpreter: Interpreter;
 
     constructor() {
-        this.interpreter = new Interpreter()
+        this.interpreter = new Interpreter();
+        this.parse();
+    }
+
+    ngAfterViewInit() {
+        this.interpreter.upin = this.upin;
+        this.interpreter.downin = this.downin;
+        this.interpreter.leftin = this.leftin;
+        this.interpreter.rightin = this.rightin;
+        this.interpreter.upout = this.upout;
+        this.interpreter.downout = this.downout;
+        this.interpreter.leftout = this.leftout;
+        this.interpreter.rightout = this.rightout;
+    }
+
+    ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
+        if (changes['clock'] && this.interpreter.running) {
+            this.interpreter.tick()
+        }
+        if (changes['running']) {
+            if (changes['running'].currentValue) {
+                let error = this.lines.some(instruction => instruction.error);
+                if (!error) {
+                    this.interpreter.start(this.lines);
+                }
+            } else {
+                this.interpreter.stop();
+            }
+        }
     }
 
     parse() {
@@ -30,18 +75,5 @@ export class Node {
         for (var i = 0; i < this.length; ++i) {
             this.numbers[i] = i + 1;
         }
-    }
-
-    toggleStatus() {
-        let error = this.lines.some(instruction => instruction.error);
-        if (this.interpreter.running) {
-            this.interpreter.stop();
-        } else if (!error) {
-            this.interpreter.start(this.lines);
-        }
-    }
-
-    tick() {
-        this.interpreter.tick()
     }
 }
