@@ -9,7 +9,7 @@ $susy: (
 $fontsize:13px;
 
 body {
-	font-family: 'Courier New', Courier, monospace;
+	font-family: "Inconsolata", "Menlo", "Consolas", monospace;
 	font-size: $fontsize;
 }
 
@@ -123,7 +123,7 @@ node{
 			box-sizing: border-box;
 			padding: 5px;
 			padding-left: 30px;
-			font-family: 'Courier New', Courier, monospace;
+			font-family: "Inconsolata", "Menlo", "Consolas", monospace;
 			font-size: $fontsize;
 			resize: none;
 			z-index: 10;

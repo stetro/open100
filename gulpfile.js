@@ -11,7 +11,7 @@ gulp.task('ts', function() {
     var tsProject = ts.createProject('tsconfig.json');
     return tsProject.src()
         .pipe(ts(tsProject)).js
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(tsProject.config.compilerOptions.outDir))
         .pipe(browserSync.stream());
 });
 
