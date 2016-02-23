@@ -1,5 +1,5 @@
 body {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
   font-size: 13px; }
 
 open100 {
@@ -104,7 +104,7 @@ node {
       box-sizing: border-box;
       padding: 5px;
       padding-left: 30px;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: "Inconsolata", "Menlo", "Consolas", monospace;
       font-size: 13px;
       resize: none;
       z-index: 10;
