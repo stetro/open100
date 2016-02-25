@@ -6,7 +6,7 @@ $susy: (
 	gutter-position: inside
 );
 
-$fontsize:13px;
+$fontsize:14px;
 
 body {
 	font-family: "Inconsolata", "Menlo", "Consolas", monospace;
@@ -19,7 +19,7 @@ open100{
 
 node{
 	@include span(3 of 12); 
-	$block_height: 160px;
+	$block_height: 180px;
 	margin-top: 50px;
 	.border{
 		position: relative;
@@ -37,12 +37,12 @@ node{
 			text-align: center;
 		}
 		.left{
-			top: 55px;
+			top: 90px;
 			left: -25px;
 			width: 20px;
 		}
 		.right{
-			top: 75px;
+			top: 90px;
 			right: -25px;
 			width: 20px;
 		}
@@ -51,8 +51,7 @@ node{
 	.code{
 		position: relative;
 		overflow: hidden;
-		border-radius: 5px;
-		box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+		box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
 		background-color: #505050;
 		> .cover{
 			position: absolute;
